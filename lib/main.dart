@@ -58,32 +58,82 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               children: [
-                BtnLight(numero: "7"),
-                BtnLight(numero: "8"),
-                BtnLight(numero: "9"),
+                BtnLight(
+                  numero: "7",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "8",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "9",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
                 BtnDark(numero: "x"),
               ],
             ),
             Row(
               children: [
-                BtnLight(numero: "4"),
-                BtnLight(numero: "5"),
-                BtnLight(numero: "6"),
+                BtnLight(
+                  numero: "4",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "5",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "6",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
                 BtnDark(numero: "-"),
               ],
             ),
             Row(
               children: [
-                BtnLight(numero: "1"),
-                BtnLight(numero: "2"),
-                BtnLight(numero: "3"),
+                BtnLight(
+                  numero: "1",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "2",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
+                BtnLight(
+                  numero: "3",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
                 BtnDark(numero: "+"),
               ],
             ),
             Row(
               children: [
                 BtnDark(numero: "+/-"),
-                BtnLight(numero: "0"),
+                BtnLight(
+                  numero: "0",
+                  onClick: (String numero) {
+                    print("Main: $numero");
+                  },
+                ),
                 BtnDark(numero: "."),
                 BtnDark(numero: "="),
               ],

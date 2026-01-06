@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class BtnLight extends StatelessWidget {
   final String numero;
-  const BtnLight({super.key, required this.numero});
+  final void Function(String) onClick;
+  const BtnLight({super.key, required this.numero, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         print("Click $numero");
+        this.onClick(this.numero);
       },
       child: Text(
         this.numero,
