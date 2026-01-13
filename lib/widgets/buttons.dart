@@ -1,44 +1,49 @@
 import 'package:flutter/material.dart';
 
-class BtnLight extends StatelessWidget {
-  final String numero;
-  final void Function(String) onClick;
-  const BtnLight({super.key, required this.numero, required this.onClick});
+class CalculatorButton extends StatelessWidget {
+  final String text;
+  final void Function(String) onPressed;
+  final Color backgroundColor;
+  final Color textColor;
+  final double fontSize;
+  final bool isWide;
+
+  const CalculatorButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.backgroundColor = const Color(0xFF333333),
+    this.textColor = Colors.white,
+    this.fontSize = 28,
+    this.isWide = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        print("Click $numero");
-        this.onClick(this.numero);
-      },
-      child: Text(
-        this.numero,
-        style: TextStyle(fontSize: 24, color: const Color(0xFF333333)),
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color(0xFFFFF9C4)), 
-      ),
-    );
-  }
-}
-
-class BtnDark extends StatelessWidget {
-  final String numero;
-  const BtnDark({super.key, required this.numero});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        print("Click $numero");
-      },
-      child: Text(
-        this.numero,
-        style: TextStyle(fontSize: 24, color: const Color(0xFFF5F5F5)),
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color(0xFF424242)),
+    return Expanded(
+      flex: isWide ? 2 : 1,
+      child: Container(
+        margin: const EdgeInsets.all(6),
+        child: ElevatedButton(
+          onPressed: () => onPressed(text),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor,
+            foregroundColor: textColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            elevation: 4,
+            shadowColor: Colors.black38,
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
       ),
     );
   }
