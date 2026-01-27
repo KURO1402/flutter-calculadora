@@ -56,14 +56,23 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       resultado = aux1 + aux2;
     } else if (operacion == "-") {
       resultado = aux1 - aux2;
-    } else if (operacion == "×"){
+    } else if (operacion == "×") {
       resultado = aux1 * aux2;
-    } else if(operacion == "÷"){
+    } else if (operacion == "÷") {
       resultado = aux1 / aux2;
     }
-    _ctrlDisplay.text = "${resultado}";
+
+    // Verificar si el resultado es un número entero
+    if (resultado == resultado.toInt()) {
+      _ctrlDisplay.text =
+          "${resultado.toInt()}"; // Mostrar sin el punto decimal si es entero
+    } else {
+      _ctrlDisplay.text =
+          "${resultado}"; // Mostrar con decimales si no es entero
+    }
+
     setState(() {
-      _display = "${resultado}";
+      _display = _ctrlDisplay.text; // Actualizamos el display
     });
   }
 
@@ -77,15 +86,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       setAux2();
       calcular();
     }
-    // Si es un número o el punto decimal, concatenamos el texto
+    // Si es el botón "C" para limpiar la pantalla
     else if (text == "C") {
       _ctrlDisplay.text = "";
       setState(() {
-        _display = '0';
+        _display = '0'; // Restablecemos la pantalla a 0
       });
-    } else {
+    }
+    // Si es el botón de retroceso (borrar un solo carácter)
+    else if (text == "⌫") {
+      if (_ctrlDisplay.text.isNotEmpty) {
+        _ctrlDisplay.text = _ctrlDisplay.text.substring(
+          0,
+          _ctrlDisplay.text.length - 1,
+        );
+      }
+      if (_ctrlDisplay.text.isEmpty) {
+        _ctrlDisplay.text = '0';
+      }
+    }
+    // Si es un número o el punto decimal, concatenamos el texto
+    else {
       _ctrlDisplay.text = "${_ctrlDisplay.text}$text";
     }
+
     setState(() {
       _display = _ctrlDisplay.text; // Actualizamos el display
     });
@@ -149,14 +173,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Row(
                     children: [
                       CalculatorButton(
-                        text: 'C',
+                        text: 'C', // El botón de limpiar toda la pantalla
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFFF1F7ED),
                         textColor: Colors.black,
                         fontSize: 26,
                       ),
                       CalculatorButton(
-                        text: '+/-',
+                        text: '⌫', // El botón de borrar un carácter
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFFF1F7ED),
                         textColor: Colors.black,
@@ -183,40 +207,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Row(
                     children: [
                       CalculatorButton(
-                        text: '1/x',
-                        onPressed: _onButtonPressed,
-                        backgroundColor: const Color(0xFFF1F7ED),
-                        textColor: Colors.black,
-                        fontSize: 24,
-                      ),
-                      CalculatorButton(
-                        text: 'x²',
-                        onPressed: _onButtonPressed,
-                        backgroundColor: const Color(0xFFF1F7ED),
-                        textColor: Colors.black,
-                        fontSize: 24,
-                      ),
-                      CalculatorButton(
-                        text: '√',
-                        onPressed: _onButtonPressed,
-                        backgroundColor: const Color(0xFFF1F7ED),
-                        textColor: Colors.black,
-                        fontSize: 24,
-                      ),
-                      CalculatorButton(
-                        text: '×',
-                        onPressed: _onButtonPressed,
-                        backgroundColor: const Color(0xFFF2BB05),
-                        textColor: Colors.white,
-                        fontSize: 32,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  // Tercera fila
-                  Row(
-                    children: [
-                      CalculatorButton(
                         text: '7',
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFF333333),
@@ -238,7 +228,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         fontSize: 28,
                       ),
                       CalculatorButton(
-                        text: '-',
+                        text: '×',
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFFF2BB05),
                         textColor: Colors.white,
@@ -247,7 +237,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  // Cuarta fila
+                  // Tercera fila
                   Row(
                     children: [
                       CalculatorButton(
@@ -272,7 +262,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         fontSize: 28,
                       ),
                       CalculatorButton(
-                        text: '+',
+                        text: '-',
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFFF2BB05),
                         textColor: Colors.white,
@@ -281,7 +271,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  // Quinta fila
+                  // Cuarta fila
                   Row(
                     children: [
                       CalculatorButton(
@@ -306,7 +296,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         fontSize: 28,
                       ),
                       CalculatorButton(
-                        text: '=',
+                        text: '+',
                         onPressed: _onButtonPressed,
                         backgroundColor: const Color(0xFFF2BB05),
                         textColor: Colors.white,
@@ -315,7 +305,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  // Sexta fila
+                  // Quinta fila
                   Row(
                     children: [
                       CalculatorButton(
@@ -334,11 +324,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         fontSize: 32,
                       ),
                       CalculatorButton(
-                        text: '⌫',
+                        text: '=',
                         onPressed: _onButtonPressed,
-                        backgroundColor: const Color(0xFFF1F7ED),
-                        textColor: Colors.black,
-                        fontSize: 26,
+                        backgroundColor: const Color(0xFFF2BB05),
+                        textColor: Colors.white,
+                        fontSize: 32,
                       ),
                     ],
                   ),
